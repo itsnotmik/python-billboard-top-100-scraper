@@ -1,4 +1,4 @@
 datetime
 bs4
-urllib.request
+urllib
 flask
