@@ -2,7 +2,7 @@
 # https://github.com/itsnotmik
 
 # Imports
-from datetime import date                       #for getting today's date
+from datetime import date, timedelta            #for getting today's date
 from bs4 import BeautifulSoup as soup           #for souping html
 from urllib.request import urlopen as request   #for getting hmtl from site
 
@@ -11,7 +11,7 @@ url = 'https://www.billboard.com/charts/'       #base URL address
 hot100 = 'hot-100/'                             #hot 100 URL addition
 bill200 = 'billboard-200/'                      #billboard 200 URL addition
 glob200 = 'billboard-global-200/'               #global 200 URL addition
-board_date = date.today()                       #todays date & holder for date URL addition
+board_date = date.today() - timedelta(1)        #todays date & holder for date URL addition
     #example URL is URL + HOT100 + BOARD_DATE
     #https://www.billboard.com/charts/hot-100/2023-07-21
 
@@ -39,7 +39,7 @@ while True:
     #check if today is entered
     if day.lower() == 'today': 
         #if it is, put todays date in board_date
-        board_date = date.today()
+        board_date = date.today() - timedelta(1)
         break
     #check if entered date is in correct format
     elif day[:3].isnumeric() and day[4] == '-' and day[5:6].isnumeric() and day[7] == '-' and day[8:9].isnumeric():
