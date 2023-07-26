@@ -41,7 +41,7 @@ def getBB100hot():
 
         dic = {'name': song,
                'artist': artist,
-               'album-art': img}
+               'album': img}
 
         #print all charting songs to console
         json.append(dic)
