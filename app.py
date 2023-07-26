@@ -6,7 +6,7 @@ from datetime import date, timedelta                       #for getting today's 
 from bs4 import BeautifulSoup as soup           #for souping html
 from urllib.request import urlopen as request   #for getting hmtl from site
 from flask import Flask, jsonify
-#from flask_cors import CORS, cross-origin
+from flask_cors import CORS, cross_origin
 
 # variables
 url = 'https://www.billboard.com/charts/'       #base URL address
@@ -49,8 +49,10 @@ def getBB100hot():
     return json
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/', methods=['GET'])
+@cross_origin()
 def returnbb100():
     return jsonify(getBB100hot())
 
