@@ -19,8 +19,8 @@ client = ''                 #placeholder for client from HTML request
 n = 10                      #number of songs to grab (default 10)
 json = []
 
-def getBB100hot():
-    client = request(url+hot100+str(board_date)) #grab html from combined URL
+def getBB100hot(days):
+    client = request(url+hot100+str(board_date - timedelta(days))) #grab html from combined URL
     page_html = client.read()                   #read HTML from client  
     client.close()                              #close connection to client
     page_soup = soup(page_html, "html.parser")  #soup html
@@ -31,20 +31,25 @@ def getBB100hot():
     a_containers = page_soup.find_all('span', class_='a-no-trucate')
     #grab all div tags with class 'lrv-a-crop-1x1 a-crop-67x100@mobile-max' (this grabs all containers with album img src)
     i_containers = page_soup.find_all('div', class_='lrv-a-crop-1x1 a-crop-67x100@mobile-max')
+    
+    try:
+        for c in range(0, n):
+            #place song name, artist name, and img src into variables
+            song = containers[c].get_text().strip()
+            artist = a_containers[c].get_text().strip()
+            src = i_containers[c].findAll('img')
+            img = src[0].get('data-lazy-src')
 
-    for c in range(0, n):
-        #place song name, artist name, and img src into variables
-        song = containers[c].get_text().strip()
-        artist = a_containers[c].get_text().strip()
-        src = i_containers[c].findAll('img')
-        img = src[0].get('data-lazy-src')
+            dic = {'name': song,
+                'artist': artist,
+                'album': img}
 
-        dic = {'name': song,
-               'artist': artist,
-               'album': img}
-
-        #print all charting songs to console
-        json.append(dic)
+            #print all charting songs to console
+            json.append(dic)
+    except IndexError:
+        print("Index Error - Billboard Hot 100 is not updated for the requested date")
+        json_r = getBB100hot(7)
+        return json_r
 
     return json
 
@@ -54,7 +59,7 @@ CORS(app)
 @app.route('/', methods=['GET'])
 @cross_origin()
 def returnbb100():
-    return jsonify(getBB100hot())
+    return jsonify(getBB100hot(0))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
