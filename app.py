@@ -20,6 +20,7 @@ n = 10                      #number of songs to grab (default 10)
 json = []
 
 def getBB100hot(days):
+    json = []
     client = request(url+hot100+str(board_date - timedelta(days))) #grab html from combined URL
     page_html = client.read()                   #read HTML from client  
     client.close()                              #close connection to client
