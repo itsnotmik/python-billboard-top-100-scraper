@@ -2,18 +2,17 @@
 
 A Python build web scraper to extract the Top Charts from [Billboard](https://www.billboard.com/charts/)
 
-Written for use in my music recommendation system then converted to an separate project
+Used in the project [**Mik's Music**](https://github.com/itsnotmik/nodejs-miks-music)
 
 Current Features:
--Get up to 100 charting songs from Hot 100, Billboard 200 and Billboard Global 200
--Print to console all charting songs
--Write to CSV all charting songs
--Grab charts from any date after 2020-09-19
+    1. Get up to 100 charting songs from Hot 100, Billboard 200 and Billboard Global 200
+    2. Export grabbed data to JSON
+    3. Write to CSV all charting songs
+    4. Grab charts from any date after 2020-09-19
 
 Expected/Possible Features:
--Get more info on songs (Last week position, peak position, weeks on chart, etc.)
--Export data as JSON
+    1. Get more info on songs (Last week position, peak position, weeks on chart, etc.)
 
 License: MIT
 
-If you use my code, I would appreciate a link to my github project!
+## If you use my code, I would appreciate a link to my github project!
