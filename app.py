@@ -20,7 +20,7 @@ n = 10                      #number of songs to grab (default 10)
 json = []
 
 def match_img_class(css_class):
-    return css_class is not None and css_class == 'lrv-a-crop-1x1'
+    return css_class is not None and css_class == 'c-lazy-image__img lrv-u-background-color-grey-lightest lrv-u-width-100p lrv-u-display-block lrv-u-height-auto'
 
 def getBB100hot(days):
     json = []
@@ -35,14 +35,18 @@ def getBB100hot(days):
     a_containers = page_soup.find_all('span', class_='a-no-trucate')
     #grab all div tags with class 'lrv-a-crop-1x1 a-crop-67x100@mobile-max' (this grabs all containers with album img src)
     i_containers = page_soup.find_all('div', class_=match_img_class)
+
+    for i in i_containers:
+        if '344x344' not in i.get('data-lazy-src'):
+            i_containers.remove(i)
     
     try:
         for c in range(0, n):
             #place song name, artist name, and img src into variables
             song = containers[c].get_text().strip()
             artist = a_containers[c].get_text().strip()
-            src = i_containers[c].findAll('img')
-            img = src[0].get('data-lazy-src')
+            src = i_containers[c]
+            img = src.get('data-lazy-src')
 
             dic = {'name': song,
                 'artist': artist,

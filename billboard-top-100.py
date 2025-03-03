@@ -104,13 +104,20 @@ while True: #check how many outputs the user wants
         print()
         n = num
         break
+
+def match_img_class(css_class):
+    return css_class is not None and css_class == 'c-lazy-image__img lrv-u-background-color-grey-lightest lrv-u-width-100p lrv-u-display-block lrv-u-height-auto'
     
 #grab all h3 tags with class 'a-no-trucate' (this grabs all containers with Song Name inside)
 containers = page_soup.find_all('h3', class_='a-no-trucate')         
 #grab all span tags with class 'a-no-trucate' (this grabs all containers with Artist Name inside)
 a_containers = page_soup.find_all('span', class_='a-no-trucate')
 #grab all div tags with class 'lrv-a-crop-1x1 a-crop-67x100@mobile-max' (this grabs all containers with album img src)
-i_containers = page_soup.find_all('div', class_='lrv-a-crop-1x1 a-crop-67x100@mobile-max')
+i_containers = page_soup.find_all('img', class_=match_img_class)
+
+for i in i_containers:
+    if '344x344' not in i.get('data-lazy-src'):
+        i_containers.remove(i)
 
 if csv: #if CSV file is wanted, create CSV based on chart selected and date
     today = date.today()
@@ -125,8 +132,8 @@ for c in range(0, n):
     #place song name, artist name, and img src into variables
     song = containers[c].get_text().strip()
     artist = a_containers[c].get_text().strip()
-    src = i_containers[c].findAll('img')
-    img = src[0].get('data-lazy-src')
+    src = i_containers[c]
+    img = src.get('data-lazy-src')
 
     #print all charting songs to console
     print(str(c+1) + ') ' + song + ' by ' + artist)
