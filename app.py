@@ -19,6 +19,9 @@ client = ''                 #placeholder for client from HTML request
 n = 10                      #number of songs to grab (default 10)
 json = []
 
+def match_img_class(css_class):
+    return css_class is not None and css_class == 'lrv-a-crop-1x1'
+
 def getBB100hot(days):
     json = []
     client = request(url+hot100+str(board_date - timedelta(days))) #grab html from combined URL
@@ -31,7 +34,7 @@ def getBB100hot(days):
     #grab all span tags with class 'a-no-trucate' (this grabs all containers with Artist Name inside)
     a_containers = page_soup.find_all('span', class_='a-no-trucate')
     #grab all div tags with class 'lrv-a-crop-1x1 a-crop-67x100@mobile-max' (this grabs all containers with album img src)
-    i_containers = page_soup.find_all('div', class_='lrv-a-crop-1x1 a-crop-67x100@mobile-max')
+    i_containers = page_soup.find_all('div', class_=match_img_class)
     
     try:
         for c in range(0, n):
