@@ -34,7 +34,7 @@ def getBB100hot(days):
     #grab all span tags with class 'a-no-trucate' (this grabs all containers with Artist Name inside)
     a_containers = page_soup.find_all('span', class_='a-no-trucate')
     #grab all div tags with class 'lrv-a-crop-1x1 a-crop-67x100@mobile-max' (this grabs all containers with album img src)
-    i_containers = page_soup.find_all('div', class_=match_img_class)
+    i_containers = page_soup.find_all('img', class_=match_img_class)
 
     for i in i_containers:
         if '344x344' not in i.get('data-lazy-src'):
