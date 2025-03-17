@@ -1,5 +1,9 @@
 # billboard-top-100-web-scraper
 
+## DEPRECATED AS OF November 27, 2024
+
+### Due to Spotify's API changes, the functionality of the recommendation system is no longer functional as per implemented here 
+
 A Python build web scraper to extract the Top Charts from [Billboard](https://www.billboard.com/charts/)
 
 Used in the project [**Mik's Music**](https://github.com/itsnotmik/nodejs-miks-music)
